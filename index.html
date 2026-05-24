@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tal Yanai — AI Agent &amp; Automation Builder</title>
+  <meta name="description" content="Portfolio of Tal Yanai — BGU MIS Student building production AI pipelines, multi-agent systems, and data automation tools." />
+
+  <!-- Tailwind CSS (Play CDN — no build step) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'ui-sans-serif', 'system-ui'],
+            mono: ['JetBrains Mono', 'ui-monospace', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+
+    /* Pipeline step arrow */
+    .pipe-step::after {
+      content: '→';
+      margin: 0 6px;
+      color: #6366f1;
+      font-weight: bold;
+    }
+    .pipe-step:last-child::after { content: ''; }
+
+    /* Horizontal screenshot scroll */
+    .ss-scroll {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: thin;
+      scrollbar-color: #6366f1 #1e293b;
+    }
+    .ss-scroll::-webkit-scrollbar { height: 4px; }
+    .ss-scroll::-webkit-scrollbar-thumb { background: #6366f1; border-radius: 2px; }
+    .ss-scroll img { scroll-snap-align: start; }
+
+    /* Card lift on hover */
+    .project-card {
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .project-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    }
+
+    /* Pill badge */
+    .badge {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 9999px;
+      font-size: 0.7rem;
+      font-weight: 500;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Smooth active nav highlight */
+    nav a { transition: color 0.15s; }
+  </style>
+</head>
+
+<!-- Force dark mode on the root -->
+<body class="dark bg-slate-900 text-slate-100 antialiased">
+
+  <!-- ═══════════════════════════════════════════
+       NAVBAR
+  ═══════════════════════════════════════════ -->
+  <nav class="sticky top-0 z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-800">
+    <div class="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between">
+      <span class="font-bold text-indigo-400 mono text-sm">tal-yanai</span>
+      <div class="flex gap-6 text-sm text-slate-400">
+        <a href="#projects" class="hover:text-white">Projects</a>
+        <a href="#stack"    class="hover:text-white">Stack</a>
+        <a href="#cv"       class="hover:text-white">CV</a>
+        <a href="#contact"  class="hover:text-white">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- ═══════════════════════════════════════════
+       HERO
+  ═══════════════════════════════════════════ -->
+  <header id="hero" class="max-w-6xl mx-auto px-6 py-28 flex flex-col items-start gap-5">
+
+    <p class="mono text-indigo-400 text-xs tracking-widest uppercase">Portfolio · 2026</p>
+
+    <h1 class="text-5xl md:text-6xl font-extrabold text-white leading-tight">
+      Tal Yanai
+    </h1>
+
+    <p class="text-xl text-slate-300 font-semibold">
+      AI Agent &amp; Automation Builder &nbsp;·&nbsp; BGU MIS Student
+    </p>
+
+    <p class="text-slate-400 max-w-2xl leading-relaxed text-base">
+      I design and ship <strong class="text-slate-200">production-grade AI pipelines</strong>,
+      multi-agent orchestration systems, and end-to-end data automation tools —
+      containerized with Docker, deployed to the cloud, and running 24/7.
+      Every project is measured by its <strong class="text-slate-200">automation ROI</strong>,
+      not just its code.
+    </p>
+
+    <!-- CTA buttons -->
+    <div class="flex gap-3 mt-1 flex-wrap">
+      <a href="https://github.com/TalYanai" target="_blank" rel="noopener"
+         class="flex items-center gap-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 hover:border-slate-600 px-4 py-2.5 rounded-lg text-sm font-medium transition-all">
+        <i class="fa-brands fa-github"></i> GitHub
+      </a>
+      <a href="https://linkedin.com/in/tal-yanai" target="_blank" rel="noopener"
+         class="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 px-4 py-2.5 rounded-lg text-sm font-medium transition-all">
+        <i class="fa-brands fa-linkedin"></i> LinkedIn
+      </a>
+      <a href="#cv"
+         class="flex items-center gap-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 hover:border-slate-600 px-4 py-2.5 rounded-lg text-sm font-medium transition-all">
+        <i class="fa-regular fa-file-pdf text-red-400"></i> CV / Résumé
+      </a>
+    </div>
+
+    <!-- Quick stats strip -->
+    <div class="flex flex-wrap gap-6 mt-4 text-sm text-slate-400">
+      <span><span class="text-indigo-400 font-bold">4</span> production projects</span>
+      <span><span class="text-indigo-400 font-bold">2</span> cloud deployments</span>
+      <span><span class="text-indigo-400 font-bold">1</span> Docker stack on Azure</span>
+      <span><span class="text-indigo-400 font-bold">5</span> AI agents in prod</span>
+    </div>
+
+  </header>
+
+
+  <!-- ═══════════════════════════════════════════
+       PROJECTS
+  ═══════════════════════════════════════════ -->
+  <section id="projects" class="max-w-6xl mx-auto px-6 pb-28">
+
+    <h2 class="text-2xl font-bold text-white mb-1">Projects</h2>
+    <p class="text-slate-400 mb-12 text-sm">Production systems — not toy demos.</p>
+
+    <div class="grid gap-10">
+
+
+      <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           PROJECT 1 — Garmin Fitness Analytics Pipeline
+      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+      <article class="project-card bg-slate-800 rounded-2xl border border-slate-700 overflow-hidden">
+        <div class="p-8">
+
+          <!-- Title row -->
+          <div class="flex items-start justify-between gap-4 flex-wrap mb-5">
+            <div>
+              <div class="flex items-center gap-2 mb-1">
+                <span class="bg-red-500/20 text-red-400 text-xs mono px-2 py-0.5 rounded-full">FLAGSHIP</span>
+                <span class="bg-blue-500/20 text-blue-300 text-xs mono px-2 py-0.5 rounded-full">Docker · Azure · Power BI</span>
+              </div>
+              <h3 class="text-xl font-bold text-white">
+                <i class="fa-solid fa-heart-pulse text-red-400 mr-2"></i>Garmin Fitness Analytics Pipeline
+              </h3>
+              <p class="text-slate-400 text-sm mt-1 max-w-2xl">
+                End-to-end automated fitness analytics: export a CSV from Garmin Connect,
+                send it to Telegram — the pipeline handles everything else.
+                Claude AI parses and normalizes activities, PostgreSQL stores them,
+                Power BI visualizes them. Zero manual steps after the export.
+              </p>
+            </div>
+            <a href="https://github.com/TalYanai/garmin-dashboard" target="_blank" rel="noopener"
+               class="shrink-0 flex items-center gap-2 border border-slate-600 hover:border-indigo-400 text-slate-300 hover:text-indigo-300 px-3 py-2 rounded-lg text-xs mono transition-colors">
+              <i class="fa-brands fa-github"></i> View Repo
+            </a>
+          </div>
+
+          <!-- Data pipeline diagram -->
+          <div class="bg-slate-900/80 rounded-xl p-5 mb-6">
+            <p class="text-xs text-slate-500 mono uppercase tracking-wider mb-3">Data Pipeline Flow</p>
+            <div class="flex flex-wrap items-center gap-y-2 text-xs mono">
+              <span class="pipe-step bg-slate-700 text-blue-300 px-3 py-1.5 rounded-full">📱 Garmin Connect CSV</span>
+              <span class="pipe-step bg-slate-700 text-green-300 px-3 py-1.5 rounded-full">💬 Telegram Bot</span>
+              <span class="pipe-step bg-slate-700 text-yellow-300 px-3 py-1.5 rounded-full">⚙️ n8n Webhook (8 nodes)</span>
+              <span class="pipe-step bg-slate-700 text-purple-300 px-3 py-1.5 rounded-full">🤖 FastAPI + Claude Tool Use</span>
+              <span class="pipe-step bg-slate-700 text-cyan-300 px-3 py-1.5 rounded-full">🐘 PostgreSQL 15</span>
+              <span class="bg-slate-700 text-orange-300 px-3 py-1.5 rounded-full">📊 Power BI (4-page dashboard)</span>
+            </div>
+          </div>
+
+          <!-- Key points -->
+          <ul class="text-sm text-slate-300 space-y-2 mb-7">
+            <li>
+              <span class="text-red-400 font-bold">▸ Docker</span>
+              — 4-service <strong>Docker Compose</strong> stack (nginx · n8n · FastAPI · PostgreSQL)
+              deployed with a single <code class="mono text-xs bg-slate-900 px-1 py-0.5 rounded">bash scripts/deploy.sh</code> on a fresh Azure Ubuntu VM
+            </li>
+            <li>
+              <span class="text-red-400 font-bold">▸ Cloud Deploy</span>
+              — <strong>Azure VM</strong> (Standard_B2s) + nginx reverse proxy + Let's Encrypt SSL with monthly auto-renewal via cron
+            </li>
+            <li>
+              <span class="text-red-400 font-bold">▸ AI Pipeline</span>
+              — Claude Tool Use API guarantees <strong>schema-valid JSON</strong> for every parsed activity;
+              handles unit conversions (miles→km, ft→m, HH:MM:SS→minutes) automatically
+            </li>
+            <li>
+              <span class="text-red-400 font-bold">▸ Automation ROI</span>
+              — re-send the same CSV any number of times; smart dedup
+              (<code class="mono text-xs bg-slate-900 px-1 py-0.5 rounded">ON CONFLICT DO NOTHING</code>) means zero duplicate rows, zero cleanup work
+            </li>
+            <li>
+              <span class="text-red-400 font-bold">▸ Secure BI</span>
+              — Power BI connects to PostgreSQL over <strong>Tailscale VPN</strong>;
+              no database port exposed to the internet
+            </li>
+          </ul>
+
+          <!-- Tags -->
+          <div class="flex flex-wrap gap-2">
+            <span class="badge bg-blue-900/60 text-blue-300">Python</span>
+            <span class="badge bg-purple-900/60 text-purple-300">FastAPI</span>
+            <span class="badge bg-orange-900/60 text-orange-300">Claude API · Tool Use</span>
+            <span class="badge bg-yellow-900/60 text-yellow-300">n8n</span>
+            <span class="badge bg-cyan-900/60 text-cyan-300">PostgreSQL 15</span>
+            <span class="badge bg-blue-900/50 text-blue-200">Power BI · DAX</span>
+            <span class="badge bg-slate-700 text-slate-300">Docker Compose</span>
+            <span class="badge bg-slate-700 text-slate-300">Azure VM</span>
+            <span class="badge bg-green-900/60 text-green-300">nginx · Let's Encrypt</span>
+            <span class="badge bg-slate-700 text-slate-300">Tailscale VPN</span>
+          </div>
+
+        </div>
+
+        <!-- Screenshots -->
+        <div class="border-t border-slate-700 px-8 py-6">
+          <p class="text-xs text-slate-500 mono uppercase tracking-wider mb-4">Screenshots</p>
+          <div class="ss-scroll pb-2">
+            <img src="screenshots/garmin_architecture.png" alt="System Architecture Diagram"
+                 class="h-48 w-auto rounded-xl border border-slate-600 object-contain bg-slate-900 shrink-0 cursor-zoom-in"
+                 onclick="this.classList.toggle('h-48'); this.classList.toggle('h-auto'); this.classList.toggle('max-w-full')" />
+            <img src="screenshots/garmin_powerbi.png" alt="Power BI Dashboard"
+                 class="h-48 w-auto rounded-xl border border-slate-600 object-cover shrink-0 cursor-zoom-in"
+                 onclick="this.classList.toggle('h-48'); this.classList.toggle('h-auto'); this.classList.toggle('max-w-full')" />
+            <img src="screenshots/garmin_n8n.png" alt="n8n Workflow (8 nodes)"
+                 class="h-48 w-auto rounded-xl border border-slate-600 object-cover shrink-0 cursor-zoom-in"
+                 onclick="this.classList.toggle('h-48'); this.classList.toggle('h-auto'); this.classList.toggle('max-w-full')" />
+            <img src="screenshots/garmin_structure.png" alt="Project Structure"
+                 class="h-48 w-auto rounded-xl border border-slate-600 object-contain bg-slate-900 shrink-0 cursor-zoom-in"
+                 onclick="this.classList.toggle('h-48'); this.classList.toggle('h-auto'); this.classList.toggle('max-w-full')" />
+          </div>
+          <p class="text-xs text-slate-600 mono mt-2">Click any screenshot to expand</p>
+        </div>
+      </article>
+
+
+      <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           PROJECT 2 — Multi-Agent Personal Assistant
+      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+      <article class="project-card bg-slate-800 rounded-2xl border border-slate-700 overflow-hidden">
+        <div class="p-8">
+
+          <div class="flex items-start justify-between gap-4 flex-wrap mb-5">
+            <div>
+              <div class="flex items-center gap-2 mb-1">
+                <span class="bg-indigo-500/20 text-indigo-400 text-xs mono px-2 py-0.5 rounded-full">CLOUD · 24/7</span>
+                <span class="bg-green-500/20 text-green-300 text-xs mono px-2 py-0.5 rounded-full">Railway.app · Claude AI</span>
+              </div>
+              <h3 class="text-xl font-bold text-white">
+                <i class="fa-solid fa-robot text-indigo-400 mr-2"></i>Multi-Agent Personal Assistant
+              </h3>
+              <p class="text-slate-400 text-sm mt-1 max-w-2xl">
+                A production AI assistant running 24/7 on Railway.app.
+                An orchestrator agent (Claude) coordinates five specialized sub-agents every morning,
+                synthesizing a personalized daily brief delivered to Gmail at 08:00 —
+                plus a live Telegram Q&amp;A bot that answers Hebrew and English questions on demand.
+              </p>
+            </div>
+            <a href="https://github.com/TalYanai/personal-assistant" target="_blank" rel="noopener"
+               class="shrink-0 flex items-center gap-2 border border-slate-600 hover:border-indigo-400 text-slate-300 hover:text-indigo-300 px-3 py-2 rounded-lg text-xs mono transition-colors">
+              <i class="fa-brands fa-github"></i> View Repo
+            </a>
+          </div>
+
+          <!-- Agent architecture -->
+          <div class="bg-slate-900/80 rounded-xl p-5 mb-6">
+            <p class="text-xs text-slate-500 mono uppercase tracking-wider mb-3">Agent Architecture</p>
+            <div class="flex flex-col gap-3 text-xs mono">
+              <div class="flex justify-center">
+                <span class="bg-indigo-900/60 text-indigo-300 border border-indigo-700 px-4 py-2 rounded-xl font-semibold">
+                  🧠 Orchestrator (Claude Opus) — classifies intent, composes brief
+                </span>
+              </div>
+              <div class="flex justify-center text-slate-500">↓ dispatches to ↓</div>
+              <div class="flex flex-wrap justify-center gap-2">
+                <span class="bg-slate-700 text-green-300 px-3 py-1.5 rounded-full">📈 Finance Agent<br/><span class="text-slate-400">yfinance · stocks</span></span>
+                <span class="bg-slate-700 text-orange-300 px-3 py-1.5 rounded-full">🏀 Sports Agent<br/><span class="text-slate-400">nba_api · Israeli players</span></span>
+                <span class="bg-slate-700 text-blue-300 px-3 py-1.5 rounded-full">💪 Fitness Agent<br/><span class="text-slate-400">JSON workout plan</span></span>
+                <span class="bg-slate-700 text-yellow-300 px-3 py-1.5 rounded-full">📅 Calendar Agent<br/><span class="text-slate-400">Google Calendar API</span></span>
+                <span class="bg-slate-700 text-red-300 px-3 py-1.5 rounded-full">📧 Mailer Agent<br/><span class="text-slate-400">Gmail SMTP</span></span>
+              </div>
+              <div class="flex gap-4 justify-center mt-1">
+                <span class="bg-slate-800 border border-slate-700 text-slate-300 px-3 py-1 rounded-lg">🌅 08:00 Daily Email Brief</span>
+                <span class="bg-slate-800 border border-slate-700 text-slate-300 px-3 py-1 rounded-lg">💬 Telegram Q&amp;A Bot</span>
+              </div>
+            </div>
+          </div>
+
+          <ul class="text-sm text-slate-300 space-y-2 mb-7">
+            <li>
+              <span class="text-indigo-400 font-bold">▸ Cloud Deploy</span>
+              — runs as a <strong>Railway.app</strong> worker process (Procfile-based); zero infrastructure maintenance, auto-restarts on crash
+            </li>
+            <li>
+              <span class="text-indigo-400 font-bold">▸ Smart Routing</span>
+              — orchestrator classifies each Telegram message and invokes <em>only</em> the relevant agent — no wasted Claude API calls
+            </li>
+            <li>
+              <span class="text-indigo-400 font-bold">▸ Automation Pipeline</span>
+              — APScheduler fires the full multi-agent pipeline at 08:00 daily with no human trigger;
+              synthesized brief emailed automatically via Gmail SMTP
+            </li>
+            <li>
+              <span class="text-indigo-400 font-bold">▸ Real-time Data</span>
+              — live stock prices (yfinance), Israeli NBA player stats (nba_api), Google Calendar events, personalized workout JSON
+            </li>
+            <li>
+              <span class="text-indigo-400 font-bold">▸ Bilingual NLU</span>
+              — understands questions in Hebrew and English; responds in the same language as the query
+            </li>
+          </ul>
+
+          <div class="flex flex-wrap gap-2">
+            <span class="badge bg-blue-900/60 text-blue-300">Python</span>
+            <span class="badge bg-orange-900/60 text-orange-300">Claude API (Opus)</span>
+            <span class="badge bg-green-900/60 text-green-300">Telegram Bot API</span>
+            <span class="badge bg-purple-900/60 text-purple-300">Flask</span>
+            <span class="badge bg-slate-700 text-slate-300">Railway.app</span>
+            <span class="badge bg-slate-700 text-slate-300">APScheduler</span>
+            <span class="badge bg-cyan-900/60 text-cyan-300">Google Calendar API</span>
+            <span class="badge bg-yellow-900/60 text-yellow-300">yfinance · nba_api</span>
+            <span class="badge bg-red-900/60 text-red-300">Gmail SMTP</span>
+          </div>
+
+        </div>
+      </article>
+
+
+      <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           PROJECT 3 — Finance Dashboard
+      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+      <article class="project-card bg-slate-800 rounded-2xl border border-slate-700 overflow-hidden">
+        <div class="p-8">
+
+          <div class="flex items-start justify-between gap-4 flex-wrap mb-5">
+            <div>
+              <div class="flex items-center gap-2 mb-1">
+                <span class="bg-green-500/20 text-green-300 text-xs mono px-2 py-0.5 rounded-full">Vanilla JS · Chart.js · No backend</span>
+              </div>
+              <h3 class="text-xl font-bold text-white">
+                <i class="fa-solid fa-chart-line text-green-400 mr-2"></i>Personal Finance Tracker
+              </h3>
+              <p class="text-slate-400 text-sm mt-1 max-w-2xl">
+                A full-featured investment portfolio manager and tracker built as a single HTML file —
+                no server, no build step, no login. Tracks holdings, visualizes performance with interactive
+                Chart.js charts, fires browser alerts on threshold crossings, and exports to CSV / Excel / PDF / JSON.
+              </p>
+            </div>
+            <a href="https://github.com/TalYanai/finance-dashboard" target="_blank" rel="noopener"
+               class="shrink-0 flex items-center gap-2 border border-slate-600 hover:border-indigo-400 text-slate-300 hover:text-indigo-300 px-3 py-2 rounded-lg text-xs mono transition-colors">
+              <i class="fa-brands fa-github"></i> View Repo
+            </a>
+          </div>
+
+          <ul class="text-sm text-slate-300 space-y-2 mb-7">
+            <li>
+              <span class="text-green-400 font-bold">▸ Data Pipeline</span>
+              — LocalStorage as the persistence layer; all portfolio data flows through a single-page reactive UI
+              with Chart.js-rendered equity curves and breakdown charts
+            </li>
+            <li>
+              <span class="text-green-400 font-bold">▸ Alert Automation</span>
+              — browser <strong>Notification API</strong> fires when a holding crosses a user-defined
+              gain/loss threshold — no backend polling required
+            </li>
+            <li>
+              <span class="text-green-400 font-bold">▸ Calendar Integration</span>
+              — generates <strong>iCal events</strong> for dividend dates and rebalancing reminders;
+              one-click import to Google Calendar or Outlook
+            </li>
+            <li>
+              <span class="text-green-400 font-bold">▸ Multi-format Export</span>
+              — one-click CSV / Excel / PDF / JSON dump for any date range; full backup/restore via JSON
+            </li>
+            <li>
+              <span class="text-green-400 font-bold">▸ Zero Infra</span>
+              — runs offline, requires no server, no npm install, no API keys; open in any browser
+            </li>
+          </ul>
+
+          <div class="flex flex-wrap gap-2">
+            <span class="badge bg-yellow-900/60 text-yellow-300">JavaScript</span>
+            <span class="badge bg-slate-700 text-slate-300">HTML / CSS</span>
+            <span class="badge bg-blue-900/60 text-blue-300">Chart.js</span>
+            <span class="badge bg-slate-700 text-slate-300">LocalStorage API</span>
+            <span class="badge bg-green-900/60 text-green-300">Notification API</span>
+            <span class="badge bg-purple-900/60 text-purple-300">iCal / Calendar</span>
+            <span class="badge bg-slate-700 text-slate-300">Hebrew RTL · Heebo font</span>
+          </div>
+
+        </div>
+      </article>
+
+
+      <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           PROJECT 4 — Our Map
+      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+      <article class="project-card bg-slate-800 rounded-2xl border border-slate-700 overflow-hidden">
+        <div class="p-8">
+
+          <div class="flex items-start justify-between gap-4 flex-wrap mb-5">
+            <div>
+              <div class="flex items-center gap-2 mb-1">
+                <span class="bg-rose-500/20 text-rose-300 text-xs mono px-2 py-0.5 rounded-full">Leaflet.js · 40+ Locations · Python Scraper</span>
+              </div>
+              <h3 class="text-xl font-bold text-white">
+                <i class="fa-solid fa-map-pin text-rose-400 mr-2"></i>Our Map — Interactive Memory Atlas
+              </h3>
+              <p class="text-slate-400 text-sm mt-1 max-w-2xl">
+                A full-screen interactive map with polaroid-style photo pins for personal travel memories.
+                Each location is a Leaflet.js marker that expands into an animated polaroid photo card on hover.
+                Data-driven from a single JSON file; adding a new pin requires one JSON entry.
+              </p>
+            </div>
+            <a href="https://github.com/TalYanai/our-map" target="_blank" rel="noopener"
+               class="shrink-0 flex items-center gap-2 border border-slate-600 hover:border-indigo-400 text-slate-300 hover:text-indigo-300 px-3 py-2 rounded-lg text-xs mono transition-colors">
+              <i class="fa-brands fa-github"></i> View Repo
+            </a>
+          </div>
+
+          <ul class="text-sm text-slate-300 space-y-2 mb-7">
+            <li>
+              <span class="text-rose-400 font-bold">▸ Geospatial Visualization</span>
+              — Leaflet.js on OpenStreetMap tiles; custom HTML markers positioned at precise GPS coordinates
+            </li>
+            <li>
+              <span class="text-rose-400 font-bold">▸ Animated Polaroids</span>
+              — CSS transform hover effects (scale + rotate) with drop shadows; smooth transitions via GPU compositing
+            </li>
+            <li>
+              <span class="text-rose-400 font-bold">▸ Data-driven</span>
+              — 40+ locations loaded from <code class="mono text-xs bg-slate-900 px-1 py-0.5 rounded">data.json</code>;
+              the entire map rebuilds from JSON with no code changes
+            </li>
+            <li>
+              <span class="text-rose-400 font-bold">▸ Automated Image Fetch</span>
+              — <code class="mono text-xs bg-slate-900 px-1 py-0.5 rounded">download_images.py</code>
+              batch-downloads all location photos from source URLs, renames them to match JSON keys
+            </li>
+            <li>
+              <span class="text-rose-400 font-bold">▸ Zero Build</span>
+              — single <code class="mono text-xs bg-slate-900 px-1 py-0.5 rounded">index.html</code>,
+              CDN assets, runs fully offline; no npm, no bundler, no server needed
+            </li>
+          </ul>
+
+          <div class="flex flex-wrap gap-2">
+            <span class="badge bg-yellow-900/60 text-yellow-300">JavaScript</span>
+            <span class="badge bg-slate-700 text-slate-300">HTML / CSS</span>
+            <span class="badge bg-green-900/60 text-green-300">Leaflet.js</span>
+            <span class="badge bg-blue-900/60 text-blue-300">Python (batch downloader)</span>
+            <span class="badge bg-slate-700 text-slate-300">JSON data layer</span>
+            <span class="badge bg-slate-700 text-slate-300">OpenStreetMap tiles</span>
+          </div>
+
+        </div>
+
+        <!-- Screenshot -->
+        <div class="border-t border-slate-700 px-8 py-6">
+          <p class="text-xs text-slate-500 mono uppercase tracking-wider mb-4">Screenshot</p>
+          <img src="screenshots/ourmap_screenshot.png" alt="Our Map — Interactive polaroid map"
+               class="rounded-xl border border-slate-600 w-full max-h-72 object-cover cursor-zoom-in"
+               onclick="this.style.maxHeight = this.style.maxHeight === 'none' ? '18rem' : 'none'" />
+          <p class="text-xs text-slate-600 mono mt-2">Click to expand</p>
+        </div>
+      </article>
+
+
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
+       TECH STACK
+  ═══════════════════════════════════════════ -->
+  <section id="stack" class="bg-slate-800/40 border-y border-slate-800">
+    <div class="max-w-6xl mx-auto px-6 py-20">
+
+      <h2 class="text-2xl font-bold text-white mb-1">Tech Stack</h2>
+      <p class="text-slate-400 text-sm mb-12">Tools I've shipped to production — not just tutorials.</p>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+
+        <!-- Languages -->
+        <div>
+          <h3 class="text-xs mono uppercase tracking-widest text-indigo-400 mb-5">Languages</h3>
+          <ul class="space-y-3 text-sm text-slate-300">
+            <li class="flex items-center gap-3">
+              <i class="fa-brands fa-python text-blue-400 w-5 text-center"></i>
+              Python
+            </li>
+            <li class="flex items-center gap-3">
+              <i class="fa-brands fa-js text-yellow-400 w-5 text-center"></i>
+              JavaScript
+            </li>
+            <li class="flex items-center gap-3">
+              <i class="fa-solid fa-database text-cyan-400 w-5 text-center"></i>
+              SQL
+            </li>
+            <li class="flex items-center gap-3">
+              <i class="fa-brands fa-html5 text-orange-400 w-5 text-center"></i>
+              HTML / CSS
+            </li>
+          </ul>
+        </div>
+
+        <!-- AI & Automation -->
+        <div>
+          <h3 class="text-xs mono uppercase tracking-widest text-indigo-400 mb-5">AI &amp; Automation</h3>
+          <ul class="space-y-3 text-sm text-slate-300">
+            <li class="flex items-center gap-3">
+              <i class="fa-solid fa-brain text-purple-400 w-5 text-center"></i>
+              Claude API (Anthropic)
+            </li>
+            <li class="flex items-center gap-3">
+              <i class="fa-solid fa-diagram-project text-yellow-400 w-5 text-center"></i>
+              n8n
+            </li>
+            <li class="flex items-center gap-3">
+              <i class="fa-brands fa-telegram text-blue-400 w-5 text-center"></i>
+              Telegram Bot API
+            </li>
+            <li class="flex items-center gap-3">
+              <i class="fa-solid fa-clock text-green-400 w-5 text-center"></i>
+              APScheduler
+            </li>
+          </ul>
+        </div>
+
+        <!-- Infrastructure -->
+        <div>
+          <h3 class="text-xs mono uppercase tracking-widest text-indigo-400 mb-5">Infrastructure</h3>
+          <ul class="space-y-3 text-sm text-slate-300">
+            <li class="flex items-center gap-3">
+              <i class="fa-brands fa-docker text-blue-400 w-5 text-center"></i>
+              Docker / Compose
+            </li>
+            <li class="flex items-center gap-3">
+              <i class="fa-brands fa-microsoft text-blue-300 w-5 text-center"></i>
+              Azure VM
+            </li>
+            <li class="flex items-center gap-3">
+              <i class="fa-solid fa-train-subway text-slate-300 w-5 text-center"></i>
+              Railway.app
+            </li>
+            <li class="flex items-center gap-3">
+              <i class="fa-solid fa-lock text-green-400 w-5 text-center"></i>
+              nginx · Let's Encrypt
+            </li>
+          </ul>
+        </div>
+
+        <!-- Data & BI -->
+        <div>
+          <h3 class="text-xs mono uppercase tracking-widest text-indigo-400 mb-5">Data &amp; BI</h3>
+          <ul class="space-y-3 text-sm text-slate-300">
+            <li class="flex items-center gap-3">
+              <i class="fa-solid fa-database text-cyan-400 w-5 text-center"></i>
+              PostgreSQL 15
+            </li>
+            <li class="flex items-center gap-3">
+              <i class="fa-solid fa-chart-bar text-orange-400 w-5 text-center"></i>
+              Power BI · DAX
+            </li>
+            <li class="flex items-center gap-3">
+              <i class="fa-solid fa-chart-pie text-red-400 w-5 text-center"></i>
+              Chart.js
+            </li>
+            <li class="flex items-center gap-3">
+              <i class="fa-solid fa-arrow-trend-up text-green-400 w-5 text-center"></i>
+              yfinance · nba_api
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
+       CV / RÉSUMÉ
+  ═══════════════════════════════════════════ -->
+  <section id="cv" class="max-w-6xl mx-auto px-6 py-24">
+
+    <h2 class="text-2xl font-bold text-white mb-1">CV / Résumé</h2>
+    <p class="text-slate-400 text-sm mb-8">
+      BGU MIS Student — available for internships and junior roles.
+    </p>
+
+    <div class="bg-slate-800 rounded-2xl border border-slate-700 overflow-hidden">
+      <!-- Inline PDF viewer -->
+      <iframe
+        src="Tal_Yanai_2026.pdf"
+        class="w-full bg-slate-900"
+        style="height: 720px;"
+        title="Tal Yanai CV 2026">
+        <!-- Fallback for browsers that don't support inline PDF -->
+        <div class="p-10 text-center text-slate-400">
+          <i class="fa-regular fa-file-pdf text-4xl text-red-400 mb-4 block"></i>
+          <p>Your browser doesn't support inline PDF preview.</p>
+          <a href="Tal_Yanai_2026.pdf" download
+             class="inline-flex items-center gap-2 mt-4 bg-indigo-600 hover:bg-indigo-500 px-4 py-2 rounded-lg text-sm text-white transition-colors">
+            <i class="fa-solid fa-download"></i> Download CV
+          </a>
+        </div>
+      </iframe>
+
+      <!-- Download bar -->
+      <div class="px-8 py-4 border-t border-slate-700 flex items-center justify-between gap-4">
+        <span class="text-slate-400 text-sm">Tal_Yanai_2026.pdf</span>
+        <a href="Tal_Yanai_2026.pdf" download
+           class="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+          <i class="fa-solid fa-download"></i> Download PDF
+        </a>
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
+       FOOTER / CONTACT
+  ═══════════════════════════════════════════ -->
+  <footer id="contact" class="bg-slate-950 border-t border-slate-800">
+    <div class="max-w-6xl mx-auto px-6 py-14 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+
+      <div>
+        <p class="text-white font-bold text-xl">Tal Yanai</p>
+        <p class="text-slate-400 text-sm mt-1">AI Agent &amp; Automation Builder · BGU MIS Student</p>
+        <p class="text-slate-500 text-xs mono mt-1">
+          Ben-Gurion University of the Negev · Beer-Sheva, Israel
+        </p>
+      </div>
+
+      <div class="flex flex-col gap-3">
+        <a href="https://github.com/TalYanai" target="_blank" rel="noopener"
+           class="flex items-center gap-3 text-slate-400 hover:text-white transition-colors text-sm">
+          <i class="fa-brands fa-github text-lg w-5 text-center"></i>
+          github.com/TalYanai
+        </a>
+        <a href="https://linkedin.com/in/tal-yanai" target="_blank" rel="noopener"
+           class="flex items-center gap-3 text-slate-400 hover:text-blue-400 transition-colors text-sm">
+          <i class="fa-brands fa-linkedin text-lg w-5 text-center"></i>
+          linkedin.com/in/tal-yanai
+        </a>
+      </div>
+
+    </div>
+
+    <div class="border-t border-slate-800 text-center py-4">
+      <p class="text-xs text-slate-600 mono">
+        Built with Tailwind CSS · Deployed on GitHub Pages · &copy; 2026 Tal Yanai
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>
