@@ -231,7 +231,7 @@
             <dl class="facts">
               <div><dt>Problem</dt><dd>Workout apps lose entries without a signal in the gym, and I wanted to import my own Garmin history and keep the data in my hands.</dd></div>
               <div><dt>What I built</dt><dd>A progressive web app that works offline and stores state locally behind a validated schema. A small Worker API syncs it to a D1 database as an append-only log of versioned changes. Retried requests are idempotent, conflicts are reported and deletes are kept as tombstones. It also imports Garmin CSV and archive files and has backup and restore with integrity checks.</dd></div>
-              <div><dt>Evidence</dt><dd>101 automated tests pass in under two seconds. They cover sync authentication, conflicts, concurrency, tombstones and paging. A deploy script checks the token, runs the tests, builds and verifies. The app has no runtime dependencies.</dd></div>
+              <div><dt>Evidence</dt><dd>91 automated tests pass in under two seconds. They cover sync authentication, conflicts, concurrency, tombstones and paging. A deploy script checks the token, runs the tests, builds and verifies. The app has no runtime dependencies.</dd></div>
               <div><dt>Limits</dt><dd>Single user with one shared bearer token, not per-user accounts. No CI workflow yet. The sync tests run against a D1 test helper rather than a live D1. The interface is in Hebrew.</dd></div>
             </dl>
             <figure class="diagram" tabindex="0">
