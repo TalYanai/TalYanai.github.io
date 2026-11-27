@@ -200,7 +200,7 @@
               <div><dt>What I built</dt><dd>A local MCP server over the Moodle web-services API with eight read-only tools: courses, deadlines, assignments, grades, course contents, forum discussions, submission status and file download. It is registered in Claude Code and feeds a study-planning workflow and scheduled status checks.</dd></div>
               <div><dt>Safeguards</dt><dd>The access token sits in Windows Credential Manager, is removed from any output, and logging is silenced because download links carry it. Requests are throttled and every ID is validated. No browser automation or stored cookies.</dd></div>
               <div><dt>Evidence</dt><dd>A live call listed my courses from the running server.</dd></div>
-              <div><dt>Limits</dt><dd>Local only, not packaged, no automated tests, and tied to a token that the university can reset.</dd></div>
+              <div><dt>Limits</dt><dd>A personal tool that runs locally, not packaged, with no automated tests, and tied to a token that the university can reset.</dd></div>
             </dl>
             <figure class="diagram" tabindex="0">
               <svg viewBox="0 0 520 250" role="img" aria-labelledby="d3t d3d">
@@ -217,6 +217,7 @@
               <figcaption>Scoped, read-only tool surface with secret hygiene.</figcaption>
             </figure>
           </div>
+          <p class="links"><a href="https://github.com/TalYanai/bgu-moodle-mcp">Source code on GitHub</a></p>
         </article>
         <!-- Case 1 -->
         <article class="case" aria-labelledby="c1">
@@ -650,12 +651,6 @@
             <h3>HR to Active Directory sync</h3>
             <p>A Power Automate flow that carries employee updates from the HR system to Active Directory and internal systems, so each change is entered once. <a href="#automation-hr">Flow overview</a></p>
             <p class="status">Still running at the company; I no longer have access, so there is no export to show. The overview is a simplified illustration.</p>
-          </article>
-          <article class="card">
-            <span class="tag">Google Sheets · mobile and desktop</span>
-            <h3>Personal budgeting system for a friend</h3>
-            <p>I gathered his needs and built a budgeting system on Google Sheets with a phone view for quick entry and a desktop view for the full picture.</p>
-            <p class="status">In regular use by him. No data shown.</p>
           </article>
           <article class="card">
             <span class="tag">Make · Monday.com · FastBots</span>
